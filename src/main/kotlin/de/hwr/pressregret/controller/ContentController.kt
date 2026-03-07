@@ -1,5 +1,6 @@
 package de.hwr.pressregret.controller
 
+import de.hwr.pressregret.api.response.AboutResponse
 import de.hwr.pressregret.api.response.HowToPlayResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,6 +20,14 @@ class ContentController {
                 "Do not get angry!",
                 "read the description on the button!"
             )
+        )
+    }
+
+    @GetMapping("/about")
+    fun about(): AboutResponse {
+        return AboutResponse(
+            title = "About Us",
+            description = "We are Sara and Emily!",
         )
     }
 }

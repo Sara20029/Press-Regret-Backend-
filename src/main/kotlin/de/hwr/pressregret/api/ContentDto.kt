@@ -1,4 +1,4 @@
-package de.hwr.pressregret.press_regret_backend.content
+package de.hwr.pressregret.api
 
 data class ContentResponse (
     val slug: String,

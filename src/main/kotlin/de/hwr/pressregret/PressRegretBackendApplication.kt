@@ -1,4 +1,4 @@
-package de.hwr.pressregret.press_regret_backend
+package de.hwr.pressregret
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

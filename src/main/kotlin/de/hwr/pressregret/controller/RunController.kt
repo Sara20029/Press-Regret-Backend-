@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/runs")
 class RunController {
-    private var nextrunId = 1
+    private var nextRunId = 1
 
     @PostMapping
     fun startRun(@RequestBody request: RunStartRequest) : RunResponse {
 
-            val runId = nextrunId
-            nextrunId++
+            val runId = nextRunId
+            nextRunId++
 
         return RunResponse(
             runId = runId,

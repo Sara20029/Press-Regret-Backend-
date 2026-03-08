@@ -1,8 +1,8 @@
 package de.hwr.pressregret.controller
 
-import de.hwr.pressregret.api.response.AboutResponse
-import de.hwr.pressregret.api.response.ContactResponse
-import de.hwr.pressregret.api.response.HowToPlayResponse
+import de.hwr.pressregret.api.response.contentResponse.AboutResponse
+import de.hwr.pressregret.api.response.contentResponse.ContactResponse
+import de.hwr.pressregret.api.response.contentResponse.HowToPlayResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

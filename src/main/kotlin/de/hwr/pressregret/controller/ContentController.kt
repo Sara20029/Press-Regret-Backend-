@@ -27,7 +27,7 @@ class ContentController {
     @GetMapping("/about")
     fun about(): AboutResponse {
         return AboutResponse(
-            title = "About Us",
+            title = "About The Game and Inspiration!",
             description = "We are Sara and Emily!",
         )
     }
@@ -37,7 +37,7 @@ class ContentController {
         return ContactResponse(
             title = "Contact Us",
             description = "You can contact us via email!",
-            email = "<EMAIL>"
+            email = "sara.emily.doof@mail.com"
         )
     }
 }

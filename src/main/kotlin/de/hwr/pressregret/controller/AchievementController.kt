@@ -22,7 +22,7 @@ class AchievementController {
             id = 2,
             title = "Easy Level",
             description = "Complete the easy level!",
-            unlocked = false
+            unlocked = true
         ),
         AchievementResponse(
             id = 3,

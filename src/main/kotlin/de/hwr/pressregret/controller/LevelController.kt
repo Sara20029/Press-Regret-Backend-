@@ -2,6 +2,7 @@ package de.hwr.pressregret.controller
 
 
 import de.hwr.pressregret.api.response.LevelResponse
+import de.hwr.pressregret.service.LevelService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -10,45 +11,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api")
-class LevelController {
+class LevelController(private val levelService: LevelService) {
 
     @GetMapping("/difficulties/{difficultyId}/levels")
     fun levels(@PathVariable difficultyId: Int): List<LevelResponse> {
-        return when (difficultyId) {
-            1 -> getEasyLevels()
-            2 -> getMediumLevels()
-            3 -> getHardLevels()
-            else -> throw IllegalArgumentException("Invalid difficultyId: $difficultyId")
-        }
-    }
-
-    private fun getEasyLevels(): List<LevelResponse> {
-        return listOf(
-            LevelResponse(1, 1, 1, "Press Button", "PRESS"),
-            LevelResponse(2, 1, 2, "Do not Press Button", "DO_NOT_PRESS"),
-            LevelResponse(3, 1, 3, "Remember number x", "REMEMBER_NUMBER"),
-            LevelResponse(4, 1, 4, "Press and Hold Button", "HOLD"),
-            LevelResponse(5, 1, 5, "Press x times", "PRESS_X_TIMES")
-        )
-    }
-
-    private fun getMediumLevels(): List<LevelResponse> {
-        return listOf(
-            LevelResponse(11, 2, 1, "Do not Press when you see a rat", "DO_NOT_PRESS"),
-            LevelResponse(12, 2, 2, "Press per corner", "PRESS_X_TIMES"),
-            LevelResponse(13, 2, 3, "Press when cats are odd", "READ_ONLY"),
-            LevelResponse(14, 2, 4, "Press Button", "DO_NOT_PRESS"), //Ratten Foto
-            LevelResponse(15, 2, 5, "The next Statement is a lie", "READ_ONLY")
-        )
-    }
-
-    private fun getHardLevels(): List<LevelResponse> {
-        return listOf(
-            LevelResponse(21, 3, 1, "Press per corner", "NOT_X_TIMES"), //darf nicht exakt drücken, wegen vorheriger Aussage, entweder mehr oder weniger
-            LevelResponse(22, 3, 2, "Katze", "DO_NOT_PRESS"), //Bild von 5 Katzen mit Ratte in der Ecke
-            LevelResponse(23, 3, 3, "Mathe", "PRESS_X_TIMES"), //Mathe Gleichung sehe OneNote
-            LevelResponse(24, 3, 4, "Pres as the remembered number", "PRESS_X_TIMES"),
-            LevelResponse(25, 3, 5, "Press 100 times", "PRESS_X_TIMES")
-        )
+        return levelService.getLevelsByDifficulty(difficultyId)
     }
 }

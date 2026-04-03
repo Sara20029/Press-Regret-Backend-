@@ -54,31 +54,25 @@ class RunController(private val levelService: LevelService) {
         )
     }
 
-    /*@PostMapping
-    fun startRun(@RequestBody request: RunStartRequest) : Run {
-
-            val runId = nextRunId
-            nextRunId++
-
-        return Run(
-            runId = runId,
-            levelId = request.levelId,
-            startedAt = 5,
-            status = "started"
-        )
-    }*/
-
-    /*@GetMapping("/{runId}")
-    fun getRun(@PathVariable runId: Int): Run {
-        return Run(
-            runId = runId,
-            levelId = 1,
-            startedAt = 5,
-            status = "running"
-        )
-    }*/
-
-
     @PostMapping("/{runId}/finish")
-    fun finishRun(@PathVariable runId: Int) = println("Run finished!")
+    fun finish(@PathVariable runId: Int): RunResponse {
+
+        val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
+        val level = levelService.getLevelById(currentRun.levelId)
+            ?: throw IllegalArgumentException("Level not found")
+
+        if (currentRun.status == "RUNNING") {
+            if (level.type == "DO_NOT_PRESS") {
+                currentRun.status = "SUCCESS"
+            } else {
+                currentRun.status = "FAILED"
+            }
+        }
+        return RunResponse(
+            runId = runId,
+            levelId = currentRun.levelId,
+            status = currentRun.status
+        )
+    }
+
 }

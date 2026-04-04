@@ -30,7 +30,7 @@ class LevelService {
             LevelResponse(2, 1, 2, "Do not Press Button", "DO_NOT_PRESS"),
             LevelResponse(3, 1, 3, "Remember number 52", "READ_ONLY"),
             LevelResponse(4, 1, 4, "Press and Hold Button", "HOLD"),
-            LevelResponse(5, 1, 5, "Press x times", "PRESS_X_TIMES", 5)
+            LevelResponse(5, 1, 5, "Press 5 times", "PRESS_X_TIMES", 5)
         )
     }
 

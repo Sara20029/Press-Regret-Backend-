@@ -44,6 +44,7 @@ class RunController(private val levelService: LevelService) {
 
         if (currentRun.status == "RUNNING"){
             currentRun.status = when (level.type) {
+                "PRESS" -> "SUCCESS"
                 "PRESS_X_TIMES" -> if (currentRun.pressCount == level.requiredPresses) "SUCCESS" else "RUNNING"
                 "DO_NOT_PRESS" -> "FAILED"
                 "HOLD" -> "RUNNING"
@@ -71,7 +72,8 @@ class RunController(private val levelService: LevelService) {
             currentRun.status = when (level.type) {
                 "DO_NOT_PRESS" -> if (currentRun.pressCount == 0) "SUCCESS" else "FAILED"
                 "NOT_X_TIMES" -> if (currentRun.pressCount != level.requiredPresses) "SUCCESS" else "FAILED"
-                "HOLD" -> "SUCCESS"
+                "HOLD" -> if (currentRun.pressCount == 0) "FAILED" else "SUCCESS"
+                "READ_ONLY" -> "SUCCESS"
                 else -> "FAILED"
             }
         }

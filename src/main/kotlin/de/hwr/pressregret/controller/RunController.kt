@@ -36,17 +36,23 @@ class RunController(private val levelService: LevelService) {
     @PostMapping("/{runId}/press")
     fun press(@PathVariable runId: Int): RunResponse {
 
+
         val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
+        currentRun.pressCount++
         val level = levelService.getLevelById(currentRun.levelId)
             ?: throw IllegalArgumentException("Level not found")
 
-        if (currentRun.status == "RUNNING") {
-            if (level.type == "PRESS") {
-                currentRun.status = "SUCCESS"
-            } else {
-                currentRun.status = "FAILED"
+        if (currentRun.status == "RUNNING"){
+            currentRun.status = when (level.type) {
+                "PRESS_X_TIMES" -> if (currentRun.pressCount == level.requiredPresses) "SUCCESS" else "RUNNING"
+                "DO_NOT_PRESS" -> "FAILED"
+                "HOLD" -> "RUNNING"
+                "NOT_X_TIMES" -> if (currentRun.pressCount != level.requiredPresses) "SUCCESS" else "FAILED"
+                else -> "FAILED"
             }
         }
+
+
         return RunResponse(
             runId = runId,
             levelId = currentRun.levelId,
@@ -62,11 +68,28 @@ class RunController(private val levelService: LevelService) {
             ?: throw IllegalArgumentException("Level not found")
 
         if (currentRun.status == "RUNNING") {
-            if (level.type == "DO_NOT_PRESS") {
-                currentRun.status = "SUCCESS"
-            } else {
-                currentRun.status = "FAILED"
+            currentRun.status = when (level.type) {
+                "DO_NOT_PRESS" -> if (currentRun.pressCount == 0) "SUCCESS" else "FAILED"
+                "NOT_X_TIMES" -> if (currentRun.pressCount != level.requiredPresses) "SUCCESS" else "FAILED"
+                "HOLD" -> "SUCCESS"
+                else -> "FAILED"
             }
+        }
+        return RunResponse(
+            runId = runId,
+            levelId = currentRun.levelId,
+            status = currentRun.status
+        )
+    }
+
+    @PostMapping("/{runId}/release")
+    fun release(@PathVariable runId: Int): RunResponse {
+        val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
+        val level = levelService.getLevelById(currentRun.levelId)
+            ?: throw IllegalArgumentException("Level not found")
+
+        if (currentRun.status == "RUNNING" && level.type == "HOLD") {
+            currentRun.status = "FAILED"
         }
         return RunResponse(
             runId = runId,

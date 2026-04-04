@@ -5,5 +5,6 @@ data class LevelResponse(
     val difficulty: Int,
     val number: Int,
     val instruction: String,
-    val type: String
+    val type: String,
+    val requiredPresses: Int? = null
 )

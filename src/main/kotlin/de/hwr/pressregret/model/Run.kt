@@ -5,4 +5,5 @@ data class Run(
     val levelId: Int,
     val startedAt: Long,
     var status: String,
+    var pressCount: Int = 0,
 )

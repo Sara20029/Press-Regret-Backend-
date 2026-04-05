@@ -15,7 +15,9 @@ class ContentController {
     fun howToPlay(): HowToPlayResponse {
          return HowToPlayResponse(
             title = "How to play",
-            description = "Press the button!",
+            description = "The game isn't that complicated. The button that you will see on the screen gives you informations." +
+                    "You have to follow the informations on it or you will loose the game." +
+                    "With every level of the difficulties you pass the level gets harder each time.",
             instructions = listOf(
                 "Press the button in the right moment!",
                 "Do not get angry!",

@@ -28,7 +28,11 @@ class ContentController {
     fun about(): AboutResponse {
         return AboutResponse(
             title = "About The Game and Inspiration!",
-            description = "We are Sara and Emily!",
+            description = "We are Sara and Emily! We are students at the HWR in Berlin in the 4th semester." +
+                    "This is our game 'Press and Regret'. The game was a little inspiration of an other game." +
+                    "'Press and Regret' will test your nerves and your reflexes." +
+                    "Enjoy the game! If you have anything that we could do better, let us know in the contact section." +
+                    "But now, have fun!",
         )
     }
 

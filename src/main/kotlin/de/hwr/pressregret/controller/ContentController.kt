@@ -17,7 +17,10 @@ class ContentController {
             title = "How to play",
             description = "The game isn't that complicated. The button that you will see on the screen gives you informations." +
                     "You have to follow the informations on it or you will loose the game." +
-                    "With every level of the difficulties you pass the level gets harder each time.",
+                    "With every level of the difficulties you pass the level gets harder each time." +
+                    "The difficulty levels and their corresponding difficulty levels are interconnected. " +
+                    "Information from the Easy or Medium difficulty levels may be useful for later levels. " +
+                    "It is advisable to start with the Easy level.",
             instructions = listOf(
                 "Press the button in the right moment!",
                 "Do not get angry!",

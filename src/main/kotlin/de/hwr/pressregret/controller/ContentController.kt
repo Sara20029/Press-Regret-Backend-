@@ -45,8 +45,10 @@ class ContentController {
     fun contact(): ContactResponse {
         return ContactResponse(
             title = "Contact Us",
-            description = "You can contact us via email!",
-            email = "sara.emily.doof@mail.com"
+            description = "You found something we could do better? Or do you want to give some feedback?" +
+                    "The contact us via email!",
+            email = "s_preissler24@stud.hwr-berlin.de" +
+                    "s_sabra24@stud.hwr-berlin.de"
         )
     }
 }

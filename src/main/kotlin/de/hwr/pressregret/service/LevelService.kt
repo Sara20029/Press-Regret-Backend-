@@ -47,7 +47,7 @@ class LevelService {
     private fun getHardLevels(): List<LevelResponse> {
         return listOf(
             LevelResponse(21, 3, 1, "Press per corner", "NOT_X_TIMES", 4), //darf nicht exakt drücken, wegen vorheriger Aussage, entweder mehr oder weniger
-            LevelResponse(22, 3, 2, "Katze", "DO_NOT_PRESS"), //Bild von 5 Katzen mit Ratte in der Ecke
+            LevelResponse(22, 3, 2, "Katze", "PRESS"), //Bild von 5 Katzen
             LevelResponse(23, 3, 3, "Mathe", "PRESS_X_TIMES", 10), //Mathe Gleichung sehe OneNote
             LevelResponse(24, 3, 4, "Pres as the remembered number", "PRESS_X_TIMES", 52),
             LevelResponse(25, 3, 5, "Press 100 times", "PRESS_X_TIMES", 100)

@@ -6,5 +6,6 @@ data class LevelResponse(
     val number: Int,
     val instruction: String,
     val type: String,
-    val requiredPresses: Int? = null
+    val requiredPresses: Int? = null,
+    val imageUrl: String? = null
 )

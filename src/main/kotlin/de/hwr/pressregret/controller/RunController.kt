@@ -3,13 +3,14 @@ package de.hwr.pressregret.controller
 import de.hwr.pressregret.api.request.RunStartRequest
 import de.hwr.pressregret.api.response.RunResponse
 import de.hwr.pressregret.model.Run
+import de.hwr.pressregret.service.AchievementService
 import de.hwr.pressregret.service.LevelService
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/api/runs")
-class RunController(private val levelService: LevelService) {
+class RunController(private val levelService: LevelService, private val achievementService: AchievementService) {
 
     private val runs = mutableMapOf<Int, Run>()
     private var nextRunId = 1
@@ -53,6 +54,10 @@ class RunController(private val levelService: LevelService) {
             }
         }
 
+        if (currentRun.status == "SUCCESS"){
+            achievementService.checkAndUnlock(level.levelId)
+        }
+
 
         return RunResponse(
             runId = runId,
@@ -77,6 +82,11 @@ class RunController(private val levelService: LevelService) {
                 else -> "FAILED"
             }
         }
+
+        if (currentRun.status == "SUCCESS"){
+            achievementService.checkAndUnlock(level.levelId)
+        }
+
         return RunResponse(
             runId = runId,
             levelId = currentRun.levelId,

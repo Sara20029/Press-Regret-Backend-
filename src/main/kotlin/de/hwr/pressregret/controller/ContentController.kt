@@ -15,16 +15,17 @@ class ContentController {
     fun howToPlay(): HowToPlayResponse {
          return HowToPlayResponse(
             title = "How to play",
-            description = "The game isn't that complicated. The button that you will see on the screen gives you informations." +
-                    "You have to follow the informations on it or you will loose the game." +
-                    "With every level of the difficulties you pass the level gets harder each time." +
-                    "The difficulty levels and their corresponding difficulty levels are interconnected. " +
-                    "Information from the Easy or Medium difficulty levels may be useful for later levels. " +
-                    "It is advisable to start with the Easy level.",
+            description = "",
             instructions = listOf(
                 "Press the button in the right moment!",
                 "Do not get angry!",
-                "read the description on the button!"
+                "Read the description on the button!",
+                "Do what the button says",
+                "If you not do what the button says, you loose",
+                "Every level will get harder",
+                "The difficulties and levels are connected",
+                "Maybe you will need something from the other levels",
+                "It's advisable to start with level easy"
             )
         )
     }
@@ -47,8 +48,7 @@ class ContentController {
             title = "Contact Us",
             description = "You found something we could do better? Or do you want to give some feedback?" +
                     "The contact us via email!",
-            email = "s_preissler24@stud.hwr-berlin.de" +
-                    "s_sabra24@stud.hwr-berlin.de"
+            email = "s_preissler24@stud.hwr-berlin.de, s_sabra24@stud.hwr-berlin.de"
         )
     }
 }

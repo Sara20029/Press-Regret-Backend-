@@ -2,60 +2,34 @@ package de.hwr.pressregret.controller
 
 import de.hwr.pressregret.api.request.RunStartRequest
 import de.hwr.pressregret.api.response.RunResponse
-import de.hwr.pressregret.model.Run
-import de.hwr.pressregret.service.LevelService
+import de.hwr.pressregret.service.RunService
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/api/runs")
-class RunController(private val levelService: LevelService) {
+class RunController(private val runService: RunService) {
 
-    private val runs = mutableMapOf<Int, Run>()
-    private var nextRunId = 1
 
     @PostMapping
-    fun startRun(@RequestBody request: RunStartRequest): RunResponse {
-        val runId = nextRunId
-        nextRunId++
+    fun start(@RequestBody request: RunStartRequest): RunResponse {
 
-        runs[runId] = Run(
-            runId = runId,
-            levelId = request.levelId,
-            startedAt = System.currentTimeMillis(),
-            status = "RUNNING"
-        )
+        val run = runService.start(request)
 
         return RunResponse(
-            runId = runId,
-            levelId = request.levelId,
-            status = "RUNNING"
+            runId = run.runId,
+            levelId = run.levelId,
+            status = run.status
         )
     }
 
     @PostMapping("/{runId}/press")
     fun press(@PathVariable runId: Int): RunResponse {
 
-
-        val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
-        currentRun.pressCount++
-        val level = levelService.getLevelById(currentRun.levelId)
-            ?: throw IllegalArgumentException("Level not found")
-
-        if (currentRun.status == "RUNNING"){
-            currentRun.status = when (level.type) {
-                "PRESS" -> "SUCCESS"
-                "PRESS_X_TIMES" -> if (currentRun.pressCount == level.requiredPresses) "SUCCESS" else "RUNNING"
-                "DO_NOT_PRESS" -> "FAILED"
-                "HOLD" -> "RUNNING"
-                "NOT_X_TIMES" -> if (currentRun.pressCount != level.requiredPresses) "SUCCESS" else "FAILED"
-                else -> "FAILED"
-            }
-        }
-
+        val currentRun = runService.press(runId)
 
         return RunResponse(
-            runId = runId,
+            runId = currentRun.runId,
             levelId = currentRun.levelId,
             status = currentRun.status
         )
@@ -64,21 +38,10 @@ class RunController(private val levelService: LevelService) {
     @PostMapping("/{runId}/finish")
     fun finish(@PathVariable runId: Int): RunResponse {
 
-        val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
-        val level = levelService.getLevelById(currentRun.levelId)
-            ?: throw IllegalArgumentException("Level not found")
+        val currentRun = runService.finish(runId)
 
-        if (currentRun.status == "RUNNING") {
-            currentRun.status = when (level.type) {
-                "DO_NOT_PRESS" -> if (currentRun.pressCount == 0) "SUCCESS" else "FAILED"
-                "NOT_X_TIMES" -> if (currentRun.pressCount != level.requiredPresses) "SUCCESS" else "FAILED"
-                "HOLD" -> if (currentRun.pressCount == 0) "FAILED" else "SUCCESS"
-                "READ_ONLY" -> "SUCCESS"
-                else -> "FAILED"
-            }
-        }
         return RunResponse(
-            runId = runId,
+            runId = currentRun.runId,
             levelId = currentRun.levelId,
             status = currentRun.status
         )
@@ -86,15 +49,11 @@ class RunController(private val levelService: LevelService) {
 
     @PostMapping("/{runId}/release")
     fun release(@PathVariable runId: Int): RunResponse {
-        val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
-        val level = levelService.getLevelById(currentRun.levelId)
-            ?: throw IllegalArgumentException("Level not found")
 
-        if (currentRun.status == "RUNNING" && level.type == "HOLD") {
-            currentRun.status = "FAILED"
-        }
+        val currentRun = runService.release(runId)
+
         return RunResponse(
-            runId = runId,
+            runId = currentRun.runId,
             levelId = currentRun.levelId,
             status = currentRun.status
         )

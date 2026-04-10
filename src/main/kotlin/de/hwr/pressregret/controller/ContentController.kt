@@ -33,21 +33,16 @@ class ContentController {
     @GetMapping("/about")
     fun about(): AboutResponse {
         return AboutResponse(
-            title = "About The Game and Inspiration!",
-            description = "We are Sara and Emily! We are students at the HWR in Berlin in the 4th semester." +
-                    "This is our game 'Press and Regret'. The game was a little inspiration of an other game." +
-                    "'Press and Regret' will test your nerves and your reflexes." +
-                    "Enjoy the game! If you have anything that we could do better, let us know in the contact section." +
-                    "But now, have fun!",
+            title = "about.title",
+            description = "about.description",
         )
     }
 
     @GetMapping("/contact")
     fun contact(): ContactResponse {
         return ContactResponse(
-            title = "Contact Us",
-            description = "You found something we could do better? Or do you want to give some feedback?" +
-                    "The contact us via email!",
+            title = "contact.title",
+            description = "contact.description",
             email = "s_preissler24@stud.hwr-berlin.de, s_sabra24@stud.hwr-berlin.de"
         )
     }

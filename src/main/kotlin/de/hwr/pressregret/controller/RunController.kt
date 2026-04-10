@@ -13,50 +13,22 @@ class RunController(private val runService: RunService) {
 
     @PostMapping
     fun start(@RequestBody request: RunStartRequest): RunResponse {
-
-        val run = runService.start(request)
-
-        return RunResponse(
-            runId = run.runId,
-            levelId = run.levelId,
-            status = run.status
-        )
+        return runService.start(request)
     }
 
     @PostMapping("/{runId}/press")
     fun press(@PathVariable runId: Int): RunResponse {
-
-        val currentRun = runService.press(runId)
-
-        return RunResponse(
-            runId = currentRun.runId,
-            levelId = currentRun.levelId,
-            status = currentRun.status
-        )
+        return runService.press(runId)
     }
 
     @PostMapping("/{runId}/finish")
     fun finish(@PathVariable runId: Int): RunResponse {
-
-        val currentRun = runService.finish(runId)
-
-        return RunResponse(
-            runId = currentRun.runId,
-            levelId = currentRun.levelId,
-            status = currentRun.status
-        )
+        return runService.finish(runId)
     }
 
     @PostMapping("/{runId}/release")
     fun release(@PathVariable runId: Int): RunResponse {
-
-        val currentRun = runService.release(runId)
-
-        return RunResponse(
-            runId = currentRun.runId,
-            levelId = currentRun.levelId,
-            status = currentRun.status
-        )
+        return runService.release(runId)
     }
 
 }

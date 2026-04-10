@@ -1,6 +1,7 @@
 package de.hwr.pressregret.service
 
 import de.hwr.pressregret.api.request.RunStartRequest
+import de.hwr.pressregret.api.response.RunResponse
 import de.hwr.pressregret.model.Run
 import org.springframework.stereotype.Service
 
@@ -10,23 +11,31 @@ class RunService(private val levelService: LevelService, private val achievement
     private val runs = mutableMapOf<Int, Run>()
     private var nextRunId = 1
 
-    fun start(request: RunStartRequest): Run {
+    fun start(request: RunStartRequest): RunResponse {
         val runId = nextRunId
         nextRunId++
 
         val run = Run(
-            runId = runId, levelId = request.levelId, startedAt = System.currentTimeMillis(), status = "RUNNING"
+            runId = runId,
+            levelId = request.levelId,
+            startedAt = System.currentTimeMillis(),
+            status = "RUNNING"
         )
         runs[runId] = run
-        return run
 
+        return RunResponse(
+            runId = run.runId,
+            levelId = run.levelId,
+            status = run.status
+        )
     }
 
-    fun press(runId: Int): Run {
+    fun press(runId: Int): RunResponse {
 
         val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
         currentRun.pressCount++
-        val level = levelService.getLevelById(currentRun.levelId) ?: throw IllegalArgumentException("Level not found")
+        val level = levelService.getLevelById(currentRun.levelId)
+            ?: throw IllegalArgumentException("Level not found")
 
         if (currentRun.status == "RUNNING") {
             currentRun.status = when (level.type) {
@@ -39,17 +48,24 @@ class RunService(private val levelService: LevelService, private val achievement
             }
         }
 
-        if (currentRun.status == "SUCCESS") {
+        val achievementKey = if (currentRun.status == "SUCCESS") {
             achievementService.checkAndUnlock(level.levelId)
-        }
+        } else null
 
-        return currentRun
+        return RunResponse(
+            runId = currentRun.runId,
+            levelId = currentRun.levelId,
+            status = currentRun.status,
+            unlockedAchievementKey = achievementKey
+        )
     }
 
-    fun finish(runId: Int): Run {
+    fun finish(runId: Int): RunResponse {
 
         val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
-        val level = levelService.getLevelById(currentRun.levelId) ?: throw IllegalArgumentException("Level not found")
+        val level = levelService.getLevelById(currentRun.levelId)
+            ?: throw IllegalArgumentException("Level not found")
+
 
         if (currentRun.status == "RUNNING") {
             currentRun.status = when (level.type) {
@@ -61,22 +77,32 @@ class RunService(private val levelService: LevelService, private val achievement
             }
         }
 
-        if (currentRun.status == "SUCCESS") {
+        val achievementKey = if (currentRun.status == "SUCCESS") {
             achievementService.checkAndUnlock(level.levelId)
-        }
+        } else null
 
-        return currentRun
+        return RunResponse(
+            runId = currentRun.runId,
+            levelId = currentRun.levelId,
+            status = currentRun.status,
+            unlockedAchievementKey = achievementKey
+        )
     }
 
-    fun release(runId: Int): Run {
+    fun release(runId: Int): RunResponse {
         val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
-        val level = levelService.getLevelById(currentRun.levelId) ?: throw IllegalArgumentException("Level not found")
+        val level = levelService.getLevelById(currentRun.levelId)
+            ?: throw IllegalArgumentException("Level not found")
 
         if (currentRun.status == "RUNNING" && level.type == "HOLD") {
             currentRun.status = "FAILED"
         }
 
-        return currentRun
+        return RunResponse(
+            runId = currentRun.runId,
+            levelId = currentRun.levelId,
+            status = currentRun.status
+        )
     }
 
 }

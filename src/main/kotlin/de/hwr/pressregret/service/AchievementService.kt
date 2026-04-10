@@ -12,24 +12,28 @@ class AchievementService {
     fun getAchievements() = listOf(
         AchievementResponse(
             id = 1,
+            key = "firstLevel",
             title = "First Level",
             description = "Complete the first level!",
             unlocked = unlockedAchievements.contains(1),
         ),
         AchievementResponse(
             id = 2,
+            key = "easyDifficulty",
             title = "Easy Difficulty",
             description = "Complete all levels in difficulty easy!",
             unlocked = unlockedAchievements.contains(2),
         ),
         AchievementResponse(
             id = 3,
+            key = "mediumDifficulty",
             title = "Medium Difficulty",
             description = "Complete all levels in difficulty Medium!",
             unlocked = unlockedAchievements.contains(3)
         ),
         AchievementResponse(
             id = 4,
+            key = "hardDifficulty",
             title = "Hard Difficulty",
             description = "Complete all levels in difficulty hard!",
             unlocked = unlockedAchievements.contains(4),

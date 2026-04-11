@@ -1,27 +1,21 @@
 package de.hwr.pressregret.controller
 
 import de.hwr.pressregret.api.dto.SettingsDto
+import de.hwr.pressregret.service.SettingsService
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/api/settings")
-class SettingsController {
-    private var currentSettings = SettingsDto(
-        theme = "dark", language = "en", soundEnabled = true
-    )
-
+class SettingsController(private val settingsService: SettingsService) {
 
     @GetMapping()
-    fun getSoundSettings(): SettingsDto {
-        return currentSettings
+    fun getSettings(): SettingsDto {
+        return settingsService.getSettings()
     }
 
     @PutMapping()
     fun updateSettings(@RequestBody settings: SettingsDto): SettingsDto {
-        currentSettings.theme = settings.theme
-        currentSettings.language = settings.language
-        currentSettings.soundEnabled = settings.soundEnabled
-        return currentSettings
+        return settingsService.updateSettings(settings)
     }
 }

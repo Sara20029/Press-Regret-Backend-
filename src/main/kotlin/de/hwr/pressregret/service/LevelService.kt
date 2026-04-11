@@ -28,8 +28,8 @@ class LevelService {
         return listOf(
             LevelResponse(1, 1, 1, "Press Button", "PRESS", 1),
             LevelResponse(2, 1, 2, "Do not Press Button", "DO_NOT_PRESS"),
-            LevelResponse(3, 1, 3, "Remember number 29", "READ_ONLY"),
-            LevelResponse(4, 1, 4, "Press and Hold Button", "HOLD"),
+            LevelResponse(3, 1, 3, "Press and Hold Button", "HOLD"),
+            LevelResponse(4, 1, 4, "Remember number 29", "READ_ONLY"),
             LevelResponse(5, 1, 5, "Press 5 times", "PRESS_X_TIMES", 5)
         )
     }

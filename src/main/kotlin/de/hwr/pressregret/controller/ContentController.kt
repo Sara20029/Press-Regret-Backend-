@@ -14,18 +14,18 @@ class ContentController {
     @GetMapping("/how-to-play")
     fun howToPlay(): HowToPlayResponse {
          return HowToPlayResponse(
-            title = "How to play",
-            description = "",
+            title = "howToPlay.title",
+            description = "howToPlay.description",
             instructions = listOf(
-                "Press the button in the right moment!",
-                "Do not get angry!",
-                "Read the description on the button!",
-                "Do what the button says",
-                "If you not do what the button says, you loose",
-                "Every level will get harder",
-                "The difficulties and levels are connected",
-                "Maybe you will need something from the other levels",
-                "It's advisable to start with level easy"
+                "howToPlay.instructions.0",
+                "howToPlay.instructions.1",
+                "howToPlay.instructions.2",
+                "howToPlay.instructions.3",
+                "howToPlay.instructions.4",
+                "howToPlay.instructions.5",
+                "howToPlay.instructions.6",
+                "howToPlay.instructions.7",
+                "howToPlay.instructions.8"
             )
         )
     }
@@ -33,21 +33,16 @@ class ContentController {
     @GetMapping("/about")
     fun about(): AboutResponse {
         return AboutResponse(
-            title = "About The Game and Inspiration!",
-            description = "We are Sara and Emily! We are students at the HWR in Berlin in the 4th semester." +
-                    "This is our game 'Press and Regret'. The game was a little inspiration of an other game." +
-                    "'Press and Regret' will test your nerves and your reflexes." +
-                    "Enjoy the game! If you have anything that we could do better, let us know in the contact section." +
-                    "But now, have fun!",
+            title = "about.title",
+            description = "about.description",
         )
     }
 
     @GetMapping("/contact")
     fun contact(): ContactResponse {
         return ContactResponse(
-            title = "Contact Us",
-            description = "You found something we could do better? Or do you want to give some feedback?" +
-                    "The contact us via email!",
+            title = "contact.title",
+            description = "contact.description",
             email = "s_preissler24@stud.hwr-berlin.de, s_sabra24@stud.hwr-berlin.de"
         )
     }

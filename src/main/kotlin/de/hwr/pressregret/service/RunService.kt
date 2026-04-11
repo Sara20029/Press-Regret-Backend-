@@ -32,10 +32,10 @@ class RunService(private val levelService: LevelService, private val achievement
 
     fun press(runId: Int): RunResponse {
 
-        val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
+        val currentRun = runs[runId] ?: throw NoSuchElementException("Run $runId not found")
         currentRun.pressCount++
         val level = levelService.getLevelById(currentRun.levelId)
-            ?: throw IllegalArgumentException("Level not found")
+            ?: throw NoSuchElementException("Level not found")
 
         if (currentRun.status == "RUNNING") {
             currentRun.status = when (level.type) {
@@ -62,9 +62,9 @@ class RunService(private val levelService: LevelService, private val achievement
 
     fun finish(runId: Int): RunResponse {
 
-        val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
+        val currentRun = runs[runId] ?: throw NoSuchElementException("Run $runId not found")
         val level = levelService.getLevelById(currentRun.levelId)
-            ?: throw IllegalArgumentException("Level not found")
+            ?: throw NoSuchElementException("Level not found")
 
 
         if (currentRun.status == "RUNNING") {
@@ -91,9 +91,9 @@ class RunService(private val levelService: LevelService, private val achievement
     }
 
     fun release(runId: Int): RunResponse {
-        val currentRun = runs[runId] ?: throw IllegalArgumentException("Run not found")
+        val currentRun = runs[runId] ?: throw NoSuchElementException("Run $runId not found")
         val level = levelService.getLevelById(currentRun.levelId)
-            ?: throw IllegalArgumentException("Level not found")
+            ?: throw NoSuchElementException("Level not found")
 
         if (currentRun.status == "RUNNING" && level.type == "HOLD") {
             currentRun.status = "FAILED"

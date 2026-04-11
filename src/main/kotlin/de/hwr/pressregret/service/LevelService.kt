@@ -11,7 +11,7 @@ class LevelService {
             1 -> getEasyLevels()
             2 -> getMediumLevels()
             3 -> getHardLevels()
-            else -> throw IllegalArgumentException("Invalid difficultyId: $difficultyId")
+            else -> throw NoSuchElementException("Difficulty $difficultyId not found")
         }
     }
 

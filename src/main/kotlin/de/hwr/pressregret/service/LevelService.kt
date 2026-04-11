@@ -27,9 +27,9 @@ class LevelService {
     private fun getEasyLevels(): List<LevelResponse> {
         return listOf(
             LevelResponse(1, 1, 1, "Press Button", "PRESS", 1),
-            LevelResponse(2, 1, 2, "Do not Press Button", "DO_NOT_PRESS"),
-            LevelResponse(3, 1, 3, "Remember number 29", "READ_ONLY"),
-            LevelResponse(4, 1, 4, "Press and Hold Button", "HOLD"),
+            LevelResponse(2, 1, 2, "Do not Press Button", "DO_NOT_PRESS", 0),
+            LevelResponse(3, 1, 3, "Press and Hold Button", "HOLD"),
+            LevelResponse(4, 1, 4, "Remember number 29", "READ_ONLY"),
             LevelResponse(5, 1, 5, "Press 5 times", "PRESS_X_TIMES", 5)
         )
     }
@@ -46,7 +46,7 @@ class LevelService {
 
     private fun getHardLevels(): List<LevelResponse> {
         return listOf(
-            LevelResponse(21, 3, 1, "Press per corner", "NOT_X_TIMES", 10, "star.png"), //darf nicht exakt drücken, wegen vorheriger Aussage, entweder mehr oder weniger
+            LevelResponse(21, 3, 1, "Press Button", "DO_NOT_PRESS", null),
             LevelResponse(22, 3, 2, "", "PRESS", 1, "cat.png"),
             LevelResponse(23, 3, 3, "3 * (8 - 2) - 4 = ?", "PRESS_X_TIMES", 14),
             LevelResponse(24, 3, 4, "Pres as the remembered number", "PRESS_X_TIMES", 29),

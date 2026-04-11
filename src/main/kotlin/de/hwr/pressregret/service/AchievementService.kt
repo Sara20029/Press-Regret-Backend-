@@ -46,10 +46,10 @@ class AchievementService {
 
     fun checkAndUnlock(levelId: Int): String? {
         return when(levelId){
-            1 -> { unlock(1); "firstLevel"}
-            5 -> { unlock(2); "easyDifficulty"}
-            15 -> { unlock(3); "mediumDifficulty"}
-            25 -> { unlock(4); "hardDifficulty"}
+            1 -> if (!unlockedAchievements.contains(1)) { unlock(1); "firstLevel"} else null
+            5 -> if (!unlockedAchievements.contains(2)) { unlock(2); "easyDifficulty"} else null
+            15 -> if (!unlockedAchievements.contains(3)) { unlock(3); "mediumDifficulty"} else null
+            25 -> if (!unlockedAchievements.contains(4)) { unlock(4); "hardDifficulty"} else null
             else -> null
         }
     }

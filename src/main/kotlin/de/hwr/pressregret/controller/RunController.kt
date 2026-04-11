@@ -3,6 +3,7 @@ package de.hwr.pressregret.controller
 import de.hwr.pressregret.api.request.RunStartRequest
 import de.hwr.pressregret.api.response.RunResponse
 import de.hwr.pressregret.service.RunService
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 
@@ -12,6 +13,7 @@ class RunController(private val runService: RunService) {
 
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     fun start(@RequestBody request: RunStartRequest): RunResponse {
         return runService.start(request)
     }

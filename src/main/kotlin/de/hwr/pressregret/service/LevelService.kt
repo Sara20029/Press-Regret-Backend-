@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service
 @Service
 class LevelService {
 
+    /**
+     * Returns all levels for a given difficulty.
+     * Throws NoSuchElementException if the difficulty ID is invalid.
+     */
     fun getLevelsByDifficulty(difficultyId: Int): List<LevelResponse> {
         return when (difficultyId) {
             1 -> getEasyLevels()
@@ -15,15 +19,24 @@ class LevelService {
         }
     }
 
+    /**
+     * Finds a single level by its ID across all difficulties.
+     * Returns null if not found.
+     */
     fun getLevelById(levelId: Int): LevelResponse? {
         return getAllLevels().find { it.levelId == levelId }
     }
 
-
+    /**
+     * Returns all levels of all difficulties.
+     */
     fun getAllLevels(): List<LevelResponse> {
         return getEasyLevels() + getMediumLevels() + getHardLevels()
     }
 
+    /**
+     * Returns all levels of difficulty easy.
+     */
     private fun getEasyLevels(): List<LevelResponse> {
         return listOf(
             LevelResponse(1, 1, 1, "Press Button", "PRESS", 1),
@@ -34,6 +47,9 @@ class LevelService {
         )
     }
 
+    /**
+     * Returns all levels of difficulty medium.
+     */
     private fun getMediumLevels(): List<LevelResponse> {
         return listOf(
             LevelResponse(11, 2, 1, "Do not Press when you see a rat", "DO_NOT_PRESS", null, "rat.png"),
@@ -44,6 +60,9 @@ class LevelService {
         )
     }
 
+    /**
+     * Returns all levels of difficulty hard.
+     */
     private fun getHardLevels(): List<LevelResponse> {
         return listOf(
             LevelResponse(21, 3, 1, "Press Button", "DO_NOT_PRESS", null),

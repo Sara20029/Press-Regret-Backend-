@@ -39,7 +39,7 @@ class RunService(private val levelService: LevelService, private val achievement
 
         if (currentRun.status == "RUNNING") {
             currentRun.status = when (level.type) {
-                "PRESS" -> "SUCCESS"
+                "PRESS" -> if (currentRun.pressCount == level.requiredPresses) "SUCCESS" else "FAILED"
                 "PRESS_X_TIMES" -> if (currentRun.pressCount == level.requiredPresses) "SUCCESS" else "RUNNING"
                 "DO_NOT_PRESS" -> "FAILED"
                 "HOLD" -> "RUNNING"
@@ -69,7 +69,8 @@ class RunService(private val levelService: LevelService, private val achievement
 
         if (currentRun.status == "RUNNING") {
             currentRun.status = when (level.type) {
-                "DO_NOT_PRESS" -> if (currentRun.pressCount == 0) "SUCCESS" else "FAILED"
+                "PRESS" -> if (currentRun.pressCount != level.requiredPresses) "FAILED" else "SUCCESS"
+                "DO_NOT_PRESS" -> if (currentRun.pressCount == level.requiredPresses) "SUCCESS" else "FAILED"
                 "NOT_X_TIMES" -> if (currentRun.pressCount != level.requiredPresses) "SUCCESS" else "FAILED"
                 "HOLD" -> if (currentRun.pressCount == 0) "FAILED" else "SUCCESS"
                 "READ_ONLY" -> "SUCCESS"

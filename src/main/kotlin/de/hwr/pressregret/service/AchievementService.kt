@@ -40,10 +40,16 @@ class AchievementService {
         )
     )
 
-    fun unlock(achievementId: Int): AchievementResponse {
-        unlockedAchievements.add(achievementId)
-        return getAchievements().firstOrNull() { it.id == achievementId }
+    fun update(achievementId: Int, unlocked: Boolean): AchievementResponse {
+        if (unlocked) unlockedAchievements.add(achievementId)
+        else unlockedAchievements.remove(achievementId)
+
+        return getAchievements().firstOrNull { it.id == achievementId }
             ?: throw IllegalArgumentException("Achievement $achievementId not found")
+    }
+
+    private fun unlock(achievementId: Int) {
+        unlockedAchievements.add(achievementId)
     }
 
     fun checkAndUnlock(levelId: Int): String? {

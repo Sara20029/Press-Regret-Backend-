@@ -45,7 +45,7 @@ class DifficultyController {
                 name = "Hard",
                 description = "Only for experts"
             )
-            else -> throw IllegalArgumentException("Invalid difficultyId: $difficultyId")
+            else -> throw NoSuchElementException("Difficulty $difficultyId not found")
         }
     }
 

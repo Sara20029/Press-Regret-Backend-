@@ -1,4 +1,4 @@
-# Press & Regret
+# Press & Regret (Backend)
 
 Ein browserbasiertes Reaktionsspiel, entwickelt von Sara und Emily im Rahmen eines Hochschulprojekts an der HWR Berlin.
 
@@ -28,6 +28,9 @@ cd press-regret-backend
 Das Backend läuft auf: `http://localhost:8080`
 
 Swagger UI (API-Dokumentation): `http://localhost:8080/swagger-ui/index.html`
+
+Das Frontend befindet sich im Repo: `https://github.com/Sara20029/Press-Regret-PR-`
+
 
 ## Technologien
 

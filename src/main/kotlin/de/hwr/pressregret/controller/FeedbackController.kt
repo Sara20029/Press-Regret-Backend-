@@ -6,7 +6,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
-
+/**
+ * Controller for receiving players feedback.
+ * Logs the feedback and returns a confirmation message
+ */
 @RestController
 @RequestMapping("/api/feedback")
 class FeedbackController {

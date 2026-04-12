@@ -1,5 +1,6 @@
 package de.hwr.pressregret.api.response
 
+// Response respresenting a single achievement with its unlock status
 data class AchievementResponse (
     val text: String = "",
     val id: Int,

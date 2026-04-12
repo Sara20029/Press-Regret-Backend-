@@ -3,10 +3,14 @@ package de.hwr.pressregret.controller
 import de.hwr.pressregret.api.response.DifficultyResponse
 import org.springframework.web.bind.annotation.*
 
+/**
+ * Controller for retrieving game difficulties
+ */
 @RestController
 @RequestMapping("/api/difficulties")
 class DifficultyController {
 
+    // Returns all available difficulties
     @GetMapping
     fun difficulties(): List<DifficultyResponse> {
         return listOf(
@@ -27,6 +31,7 @@ class DifficultyController {
             ))
     }
 
+    // Returns a single difficulty by ID
     @GetMapping("/{difficultyId}")
     fun difficulty(@PathVariable difficultyId: Int): DifficultyResponse {
         return when (difficultyId) {

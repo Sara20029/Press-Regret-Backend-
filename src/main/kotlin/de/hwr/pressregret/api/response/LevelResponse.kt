@@ -1,5 +1,6 @@
 package de.hwr.pressregret.api.response
 
+// Represents a single game level with its type and optional configuration
 data class LevelResponse(
     val levelId: Int,
     val difficulty: Int,

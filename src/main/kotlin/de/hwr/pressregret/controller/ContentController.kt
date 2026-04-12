@@ -5,10 +5,15 @@ import de.hwr.pressregret.api.response.contentResponse.ContactResponse
 import de.hwr.pressregret.api.response.contentResponse.HowToPlayResponse
 import org.springframework.web.bind.annotation.*
 
+/**
+ * Controller for serving static content pages.
+ * Content uses i18n keys resolved on the frontend.
+ */
 @RestController
 @RequestMapping("/api/content")
 class ContentController {
 
+    // Returns the how-to-play content with a list of instruction i18n keys
     @GetMapping("/how-to-play")
     fun howToPlay(): HowToPlayResponse {
          return HowToPlayResponse(
@@ -28,6 +33,7 @@ class ContentController {
         )
     }
 
+    // Returns the about page content
     @GetMapping("/about")
     fun about(): AboutResponse {
         return AboutResponse(
@@ -36,6 +42,7 @@ class ContentController {
         )
     }
 
+    // Returns the contact page content including team mail address.
     @GetMapping("/contact")
     fun contact(): ContactResponse {
         return ContactResponse(

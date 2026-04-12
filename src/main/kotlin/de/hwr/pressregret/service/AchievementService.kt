@@ -3,12 +3,20 @@ package de.hwr.pressregret.service
 import de.hwr.pressregret.api.response.AchievementResponse
 import org.springframework.stereotype.Service
 
-
+/**
+ * Service managing the achievement system.
+ *
+ * Achievements are unlocked automatically when specific levels are completed.
+ * The unlock state is stored in-memory per session. Achievements reset on server restart.
+ */
 @Service
 class AchievementService {
 
+    // Set of achievement IDs that have been unlocked in the current session.
     private val unlockedAchievements = mutableSetOf<Int>()
 
+
+    //Returns all achievements with their current unlock status.
     fun getAchievements() = listOf(
         AchievementResponse(
             id = 1,
@@ -40,6 +48,10 @@ class AchievementService {
         )
     )
 
+    /**
+     * Manually updates the unlock state of a specific achievement.
+     * Used by the Frontend to explicitly lock or unlock an achievement.
+     */
     fun update(achievementId: Int, unlocked: Boolean): AchievementResponse {
         if (unlocked) unlockedAchievements.add(achievementId)
         else unlockedAchievements.remove(achievementId)
@@ -48,10 +60,15 @@ class AchievementService {
             ?: throw IllegalArgumentException("Achievement $achievementId not found")
     }
 
+    //Internally unlocks an achievement by adding its ID to the unlocked set
     private fun unlock(achievementId: Int) {
         unlockedAchievements.add(achievementId)
     }
 
+    /**
+     * Checks whether completing the given level triggers an achievement unlock.
+     * Each achievement is only unlocked once. Subsequent completions of the same level are ignored.
+     */
     fun checkAndUnlock(levelId: Int): String? {
         return when(levelId){
             1 -> if (!unlockedAchievements.contains(1)) { unlock(1); "firstLevel"} else null

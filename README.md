@@ -19,8 +19,8 @@ Das Spiel besteht aus drei Schwierigkeitsstufen mit je 5 Leveln. Jedes Level hat
 
 ```bash
 # Repository klonen
-git clone 
-cd press-regret-backend
+git clone https://github.com/Sara20029/Press-Regret-Backend-
+cd Press-Regret-Backend-
 
 # Backend starten
 ./gradlew bootRun

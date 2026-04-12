@@ -52,10 +52,10 @@ class LevelService {
      */
     private fun getMediumLevels(): List<LevelResponse> {
         return listOf(
-            LevelResponse(11, 2, 1, "Do not Press when you see a rat", "DO_NOT_PRESS", null, "rat.png"),
+            LevelResponse(11, 2, 1, "Do not Press when you see a rat", "DO_NOT_PRESS", 0, "rat.png"),
             LevelResponse(12, 2, 2, "Press per corner", "PRESS_X_TIMES", 10, "star.png"),
             LevelResponse(13, 2, 3, "Press when cats are odd", "READ_ONLY"),
-            LevelResponse(14, 2, 4, "Press Button", "DO_NOT_PRESS", null, "rat.png"),
+            LevelResponse(14, 2, 4, "Press Button", "DO_NOT_PRESS", 0, "rat.png"),
             LevelResponse(15, 2, 5, "The next Statement is a lie", "READ_ONLY")
         )
     }
@@ -65,10 +65,10 @@ class LevelService {
      */
     private fun getHardLevels(): List<LevelResponse> {
         return listOf(
-            LevelResponse(21, 3, 1, "Press Button", "DO_NOT_PRESS", null),
+            LevelResponse(21, 3, 1, "Press Button", "DO_NOT_PRESS", 0),
             LevelResponse(22, 3, 2, "", "PRESS", 1, "cat.png"),
             LevelResponse(23, 3, 3, "3 * (8 - 2) - 4 = ?", "PRESS_X_TIMES", 14),
-            LevelResponse(24, 3, 4, "Pres as the remembered number", "PRESS_X_TIMES", 29),
+            LevelResponse(24, 3, 4, "Press as the remembered number", "PRESS_X_TIMES", 29),
             LevelResponse(25, 3, 5, "Press 100 times", "PRESS_X_TIMES", 100)
         )
     }
